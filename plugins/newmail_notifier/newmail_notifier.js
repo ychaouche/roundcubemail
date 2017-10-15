@@ -35,7 +35,7 @@ function newmail_notifier_run(prop)
     if (prop.sound)
         newmail_notifier_sound();
     if (prop.desktop)
-        newmail_notifier_desktop(rcmail.get_label('body', 'newmail_notifier'));
+        newmail_notifier_desktop(prop.from + ":" + prop.subject);  
 }
 
 // Stops notification
