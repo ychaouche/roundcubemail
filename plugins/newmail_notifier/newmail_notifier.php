@@ -197,7 +197,8 @@ class newmail_notifier extends rcube_plugin
         $deleted = $this->rc->config->get('skip_deleted') ? 'UNDELETED ' : '';
         $search  = $deleted . 'UNSEEN UID ' . $args['diff']['new'];
         $unseen  = $storage->search_once($mbox, $search);
-
+        $hdr     = $storage->get_message_headers($unseen->get()[0]); 
+        
         if ($unseen->count()) {
             $this->notified = true;
 
@@ -207,6 +208,8 @@ class newmail_notifier extends rcube_plugin
                     'basic'   => $this->opt['basic'],
                     'sound'   => $this->opt['sound'],
                     'desktop' => $this->opt['desktop'],
+                    'subject' => $hdr->subject,
+                    'from'    => $hdr->from,
                 ));
         }
 
